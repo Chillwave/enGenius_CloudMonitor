@@ -1,0 +1,58 @@
+{
+    "_comment": "Email template for EnGenius Device Monitor alerts. Edit fields below to customize.",
+    "_priority_options": "high, normal, low - set in smtp_creds.json",
+
+    "offline_subject": "{count} device(s) went OFFLINE",
+    "online_subject": "{count} device(s) came ONLINE",
+    "wan_subject": "{count} WAN IP change(s) detected",
+    "test_subject": "SMTP Test",
+
+    "offline_body": [
+        "EnGenius Device Monitor - OFFLINE Alert",
+        "========================================",
+        "Timestamp: {timestamp}",
+        "",
+        "{count} device(s) went OFFLINE:",
+        "",
+        "{device_list}",
+        "",
+        "Current totals: {total} devices | {online} online | {offline} offline"
+    ],
+
+    "online_body": [
+        "EnGenius Device Monitor - ONLINE Alert",
+        "========================================",
+        "Timestamp: {timestamp}",
+        "",
+        "{count} device(s) came back ONLINE:",
+        "",
+        "{device_list}",
+        "",
+        "Current totals: {total} devices | {online} online | {offline} offline"
+    ],
+
+    "wan_body": [
+        "EnGenius Device Monitor - WAN IP Change Alert",
+        "==============================================",
+        "Timestamp: {timestamp}",
+        "",
+        "{count} site(s) changed WAN IP:",
+        "",
+        "{device_list}"
+    ],
+
+    "device_format": "  - [{type}] {name} ({network}) WAN: {wan_ip}{outage_str}",
+    "wan_format": "  - {name}: {wan_ip}",
+
+    "test_body": [
+        "EnGenius Device Monitor - SMTP Test",
+        "========================================",
+        "Timestamp: {timestamp}",
+        "Server:    {server}:{port}",
+        "From:      {from_addr}",
+        "To:        {to_addr}",
+        "========================================",
+        "",
+        "If you received this, SMTP alerts are working."
+    ]
+}

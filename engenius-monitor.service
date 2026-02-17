@@ -1,0 +1,19 @@
+[Unit]
+Description=EnGenius Cloud Device Monitor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/engenius_device_monitor
+ExecStart=/usr/bin/python3 -u monitor.py --daemon
+StandardInput=null
+StandardOutput=append:/var/log/engenius-monitor.log
+StandardError=append:/var/log/engenius-monitor.log
+Restart=on-failure
+RestartSec=30
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
