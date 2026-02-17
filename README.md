@@ -10,8 +10,9 @@ Monitors EnGenius Cloud APs, switches, and switch extenders for online/offline s
 | `config.py` | Settings and config loading |
 | `engenius_api.py` | EnGenius Cloud API client |
 | `smtp_engine.py` | SMTP email alerts |
-| `smtp_creds.json` | SMTP credentials (edit this) |
-| `api_key.txt` | Your EnGenius API key (create this) |
+| `smtp_creds.example.json` | SMTP credential template (copy to `smtp_creds.json`) |
+| `api_key.txt` | Your EnGenius API key (create this, gitignored) |
+| `.gitignore` | Excludes keys, creds, and runtime data |
 
 ## Setup
 
@@ -45,6 +46,12 @@ CHECK_INTERVAL = 600  # seconds (600 = 10 min)
 ```
 
 ## SMTP Email Alerts
+
+Copy the example config and edit with your credentials:
+
+```bash
+cp smtp_creds.example.json smtp_creds.json
+```
 
 Edit `smtp_creds.json`:
 
@@ -81,6 +88,53 @@ Switch extenders do not have a dedicated list endpoint in the EnGenius API. They
 - `current_WanData.csv` - Refreshes with current data to provide WAN IP addresses for other applications in an easy format
 - `device_status_cache.json` - State cache for change detection
 - `device_monitor_log_TIMESTAMP.txt` - Alert log (monitor mode)
+
+## Example Alerts
+
+**WAN IP Change:**
+
+```
+Subject: [EnGenius Network Alert] 1 WAN IP change(s) detected
+
+EnGenius Device Monitor - WAN IP Change Alert
+==============================================
+Timestamp: 2026-02-13 06:08:03
+
+1 site(s) changed WAN IP:
+  - NY-Lakewood-Office: 198.51.100.44 -> 203.0.113.87
+```
+
+**Devices Online:**
+
+```
+Subject: [EnGenius Network Alert] 2 device(s) came ONLINE
+
+EnGenius Device Monitor - ONLINE Alert
+========================================
+Timestamp: 2026-02-13 01:31:28
+
+2 device(s) came back ONLINE:
+  - [Switch] NY-Lakewood-SW4 (NY-Lakewood) WAN: 192.0.2.150 (offline for 4h 13m)
+  - [Switch] NY-Lakewood-SW3 (NY-Lakewood) WAN: 192.0.2.150 (offline for 4h 13m)
+
+Current totals: 84 devices | 79 online | 5 offline
+```
+
+**Devices Offline:**
+
+```
+Subject: [EnGenius Network Alert] 2 device(s) went OFFLINE
+
+EnGenius Device Monitor - OFFLINE Alert
+========================================
+Timestamp: 2026-02-12 21:17:38
+
+2 device(s) went OFFLINE:
+  - [Switch] NY-Lakewood-SW4 (NY-Lakewood) WAN: 192.0.2.150
+  - [Switch] NY-Lakewood-SW3 (NY-Lakewood) WAN: 192.0.2.150
+
+Current totals: 84 devices | 77 online | 7 offline
+```
 
 ## Troubleshooting
 
