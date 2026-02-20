@@ -30,7 +30,7 @@ class EnGeniusAPI:
                 elif resp.status_code == 406:
                     print(f"[ERROR] API returned 406 Not Acceptable for {endpoint}")
                     print(f"[ERROR] This usually means expired API key or IP not authorized")
-                    print(f"[ERROR] Regenerate your API key or check IP whitelist in EnGenius Cloud")
+                    print(f"[ERROR] Regenerate your API key or check IP allow list in EnGenius Cloud")
                     return None
                 elif resp.status_code == 503:
                     if attempt < MAX_RETRIES - 1:
