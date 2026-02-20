@@ -10,8 +10,9 @@ Usage:
     python3 monitor.py --test-smtp  Test SMTP connection
 """
 
-import sys
-import os
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Run within own folder, fix for Windows
 import csv
 import time
 import json
